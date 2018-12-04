@@ -62,8 +62,7 @@ def set_github_comment(status):
     payload = {
         "body": get_chuck_norris_gif(status)
     }
-    response = requests.post(COMMENTS_GITHUB_URI, headers=API_HEADER, data=json.dumps(payload))
-    return response.json()
+    return requests.post(COMMENTS_GITHUB_URI, headers=API_HEADER, data=json.dumps(payload)).json()
 
 
 def get_pull_request_status():
@@ -103,6 +102,7 @@ def get_pull_request_status():
             set_github_comment("good")
 
             sys.exit(0)
+
     if in_progress == 1:
         print "LOG: Build still in progress, re-running the get pull request status function."
 
