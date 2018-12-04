@@ -17,7 +17,7 @@ with open(os.environ["GITHUB_EVENT_PATH"]) as json_file:
 BASE_GITHUB_URI="https://api.github.com/"
 API_VERSION="v3"
 API_HEADER={
-    "Accept": "application/json",
+    "Accept": "application/vnd.github.{}+json".format(API_VERSION),
     "Authorization": "token {}".format(GITHUB_TOKEN)
 }
 
