@@ -41,18 +41,16 @@ def get_pull_request_status():
     in_progress = 0
     # To check the status I need to extract the follow values
     for state in status["check_runs"]:
-
-        print os.environ["GITHUB_ACTION"]
         if os.environ["GITHUB_ACTION"] == state["name"]:
             continue
 
         if state["state"] == "in_progress":
-            in_progress = 1
+            print "LOG: Build status still in progress..."
+            in_progress == 1
             continue
 
         # If the status is complete and fails, post bad commment
         if state["state"] == "completed" and state["conclusion"] == "failure":
-
             print "LOG: Build status returning failed, posting bad chuck norris..."
 
             # First let's remove the old comments
@@ -61,11 +59,11 @@ def get_pull_request_status():
             set_github_comment("bad")
 
         elif state["state"] == "completed" and state["conclusion"] == "success":
-
             print "LOG: Build status returned success, posting good chuck norris..."
 
+            # First let's remove the old comments
             get_remove_old_comment()
-
+            # Post the "bad" chuck norris gif
             set_github_comment("good")
 
     if in_progress == 1:
