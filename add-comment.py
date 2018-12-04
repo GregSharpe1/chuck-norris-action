@@ -3,6 +3,7 @@
 import requests
 import json
 import time
+import sys
 # Used with the ENV vars set within the Github Action.
 import os
 
@@ -91,6 +92,8 @@ def get_pull_request_status():
             # Post the "bad" chuck norris gif
             set_github_comment("bad")
 
+            sys.exit(0)
+
         elif state["status"] == "completed" and state["conclusion"] == "success":
             print "LOG: Build status returned success, posting good chuck norris..."
 
@@ -99,11 +102,12 @@ def get_pull_request_status():
             # Post the "bad" chuck norris gif
             set_github_comment("good")
 
-    # if in_progress == 1:
-    #     print "LOG: Build still in progress, re-running the get pull request status function."
+            sys.exit(0)
+    if in_progress == 1:
+        print "LOG: Build still in progress, re-running the get pull request status function."
 
-    #     time.sleep(2)
-    #     get_pull_request_status()
+        time.sleep(2)
+        get_pull_request_status()
 
     return
 
