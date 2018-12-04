@@ -5,6 +5,10 @@ LABEL "com.github.actions.description"="Displays a chuck norris gif based on PR 
 LABEL "com.github.actions.icon"="activity"
 LABEL "com.github.actions.color"="blue"
 
+WORKDIR /app
+
+COPY . /app
+
 RUN pip install -r requirements.txt
 
 COPY add-comment.py /usr/local/bin/add-comment
