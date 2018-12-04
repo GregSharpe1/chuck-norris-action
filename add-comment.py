@@ -50,9 +50,6 @@ def get_remove_old_comment():
             print DELETE_COMMENT_URL
             response = requests.delete(DELETE_COMMENT_URL, headers=API_HEADER)
 
-    return response
-
-
 def set_github_comment(status):
     """
         Post the chuck status on PR
@@ -62,7 +59,7 @@ def set_github_comment(status):
     payload = {
         "body": get_chuck_norris_gif(status)
     }
-    return requests.post(COMMENTS_GITHUB_URI, headers=API_HEADER, data=json.dumps(payload)).json()
+    requests.post(COMMENTS_GITHUB_URI, headers=API_HEADER, data=json.dumps(payload)).json()
 
 
 def get_pull_request_status():
