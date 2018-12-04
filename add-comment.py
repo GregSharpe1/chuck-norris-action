@@ -2,7 +2,7 @@
 
 import requests
 import json
-
+import time
 # Used with the ENV vars set within the Github Action.
 import os
 
@@ -38,12 +38,45 @@ def get_pull_request_status():
     STATUS_ENDPOINT = BASE_GITHUB_URI + "repos/{}/commits/{}/check-runs".format(GITHUB_REPO, GITHUB_SHA)
     status = requests.get(STATUS_ENDPOINT, headers=API_HEADER).json()
 
+    in_progress = 0
     # To check the status I need to extract the follow values
     for state in status["check_runs"]:
         print state["status"]
+        print state["name"]
+        print state["conclusion"]
 
-    print status
+        if os.environ["GITHUB_ACTION"] == state["name"]:
+            continue
 
+        if state["state"] == "in_progress":
+            in_progress = 1
+            continue
+
+        # If the status is complete and fails, post bad commment
+        if state["state"] == "completed" and state["conclusion"] == "failure":
+
+            print "LOG: Build status returning failed, posting bad chuck norris..."
+
+            # First let's remove the old comments
+            get_remove_old_comment()
+            # Post the "bad" chuck norris gif
+            set_github_comment("bad")
+
+        elif state["state"] == "complete" and state["conclusion"] == "success":
+
+            print "LOG: Build status returned success, posting good chuck norris..."
+
+            get_remove_old_comment()
+
+            set_github_comment("good")
+
+    if in_progress == 1:
+        print "LOG: Build still in progress, re-running the get pull request status function."
+
+        time.sleep(2)
+        get_pull_request_status()
+
+    return        
 
 def get_remove_old_comment():
     """
@@ -85,10 +118,6 @@ def main():
         clear any comments
         post chuck status
     """
-
-    # get_remove_old_comment()
-
-    # set_github_comment("good")
 
     get_pull_request_status()
 
