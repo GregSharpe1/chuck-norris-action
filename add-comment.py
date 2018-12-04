@@ -41,10 +41,8 @@ def get_pull_request_status():
     in_progress = 0
     # To check the status I need to extract the follow values
     for state in status["check_runs"]:
-        print state["status"]
-        print state["name"]
-        print state["conclusion"]
 
+        print os.environ["GITHUB_ACTION"]
         if os.environ["GITHUB_ACTION"] == state["name"]:
             continue
 
@@ -62,7 +60,7 @@ def get_pull_request_status():
             # Post the "bad" chuck norris gif
             set_github_comment("bad")
 
-        elif state["state"] == "complete" and state["conclusion"] == "success":
+        elif state["state"] == "completed" and state["conclusion"] == "success":
 
             print "LOG: Build status returned success, posting good chuck norris..."
 
