@@ -16,6 +16,7 @@ with open(os.environ["GITHUB_EVENT_PATH"]) as json_file:
 
 BASE_GITHUB_URI="https://api.github.com/"
 API_VERSION="v3"
+# We require the antiope-preview for the check-runs preview.
 API_HEADER={
     "Accept": "application/vnd.github.{}+json".format(API_VERSION),
     "Accept": "application/vnd.github.antiope-preview+json",
@@ -36,6 +37,10 @@ def get_pull_request_status():
     """
     STATUS_ENDPOINT = BASE_GITHUB_URI + "repos/{}/commits/{}/check-runs".format(GITHUB_REPO, GITHUB_SHA)
     status = requests.get(STATUS_ENDPOINT, headers=API_HEADER).json()
+
+    # To check the status I need to extract the follow values
+    for state in status["check_runs"]:
+        print state["status"]
 
     print status
 
