@@ -76,12 +76,11 @@ def get_pull_request_status():
     # To check the status I need to extract the follow values
     for state in status["check_runs"]:
         if os.environ["GITHUB_ACTION"] == state["name"]:
-            continue
+            print "LOG: Github action matches, we're good too go.."
 
         if state["state"] == "in_progress":
             print "LOG: Build status still in progress..."
             in_progress = 1
-            continue
 
         # If the status is complete and fails, post bad commment
         if state["state"] == "completed" and state["conclusion"] == "failure":
