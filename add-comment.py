@@ -9,12 +9,10 @@ import os
 GITHUB_REPO=os.environ["GITHUB_REPOSITORY"]
 GITHUB_TOKEN=os.environ["GITHUB_TOKEN"]
 
-# Generate the pull request number from the 
-# GITHUB_PULL_NUMBER=json.load(os.environ["GITHUB_EVENT_PATH"]).read()
 
 with open(os.environ["GITHUB_EVENT_PATH"]) as json_file:
     data = json.load(json_file)
-    print data['number']
+    GITHUB_PULL_NUMBER = data['number']
 
 BASE_GITHUB_URI="https://api.github.com/"
 API_VERSION="v3"
@@ -60,7 +58,7 @@ def set_github_comment(status):
     """
         Post the chuck status on PR
     """
-    COMMENTS_GITHUB_URI = BASE_GITHUB_URI + "repos/{}/issues/1/comments".format(GITHUB_REPO)
+    COMMENTS_GITHUB_URI = BASE_GITHUB_URI + "repos/{}/issues/{}/comments".format(GITHUB_REPO, GITHUB_PULL_NUMBER)
 
     payload = {
         "body": get_chuck_norris_gif(status)
