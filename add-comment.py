@@ -90,7 +90,7 @@ def get_pull_request_status():
 
         if state["state"] == "in_progress":
             print "LOG: Build status still in progress..."
-            in_progress == 1
+            in_progress = 1
             continue
 
         # If the status is complete and fails, post bad commment
