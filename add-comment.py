@@ -78,12 +78,12 @@ def get_pull_request_status():
         if os.environ["GITHUB_ACTION"] == state["name"]:
             print "LOG: Github action matches, we're good too go.."
 
-        if state["state"] == "in_progress":
+        if state["status"] == "in_progress":
             print "LOG: Build status still in progress..."
             in_progress = 1
 
         # If the status is complete and fails, post bad commment
-        if state["state"] == "completed" and state["conclusion"] == "failure":
+        if state["status"] == "completed" and state["conclusion"] == "failure":
             print "LOG: Build status returning failed, posting bad chuck norris..."
 
             # First let's remove the old comments
@@ -91,7 +91,7 @@ def get_pull_request_status():
             # Post the "bad" chuck norris gif
             set_github_comment("bad")
 
-        elif state["state"] == "completed" and state["conclusion"] == "success":
+        elif state["status"] == "completed" and state["conclusion"] == "success":
             print "LOG: Build status returned success, posting good chuck norris..."
 
             # First let's remove the old comments
