@@ -8,7 +8,7 @@ import os
 
 GITHUB_REPO=os.environ["GITHUB_REPOSITORY"]
 GITHUB_TOKEN=os.environ["GITHUB_TOKEN"]
-
+GITHUB_SHA=os.environ["GITHUB_SHA"]
 
 with open(os.environ["GITHUB_EVENT_PATH"]) as json_file:
     data = json.load(json_file)
@@ -29,6 +29,16 @@ def get_chuck_norris_gif(status):
     return "![](https://raw.githubusercontent.com/GregSharpe1/chuck-norris-action/master/img/{}-chuck/1.gif)".format(status)
 
 
+def get_pull_request_status():
+    """
+        Return the status of the pull request in question.
+    """
+    STATUS_ENDPOINT = BASE_GITHUB_URI + "repos/{}/commits/{}/check-runs".format(GITHUB_REPO, GITHUB_SHA)
+    status = requests.get(STATUS_ENDPOINT, headers=API_HEADER).json()
+
+    print status
+
+
 def get_remove_old_comment():
     """
         Remove the chuck if exists
@@ -39,9 +49,7 @@ def get_remove_old_comment():
 
     for comment in github_comments:
         # Loop through every commment if a comment exists with chuck norris .gif remove it.
-        print comment["body"]
-        print comment["id"]
-        if "1.gif" in comment["body"]:
+        if "chuck-norris-action" and ".gif" in comment["body"]:
             # We've found a chuck norris . gif related comment
             # Let's remove it as assuming it's been posted by this action before.
             print("Removing comment: {}".format(comment["id"]))
@@ -72,11 +80,11 @@ def main():
         post chuck status
     """
 
-    get_remove_old_comment()
+    # get_remove_old_comment()
 
-    set_github_comment("good")
+    # set_github_comment("good")
 
-    print "Sent chuck chuck"
+    get_pull_request_status()
 
 # call the main script everrrrrrry time
 if __name__ == "__main__":
