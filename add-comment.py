@@ -14,6 +14,12 @@ GITHUB_PULL_NUMBER=os.environ["GITHUB_EVENT_PATH"]
 
 print json.dumps(GITHUB_PULL_NUMBER)
 
+json_data=open(GITHUB_PULL_NUMBER).read()
+
+data = json.loads(json_data)
+
+print data
+
 BASE_GITHUB_URI="https://api.github.com/"
 API_VERSION="v3"
 API_HEADER={
