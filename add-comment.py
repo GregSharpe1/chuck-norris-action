@@ -18,6 +18,7 @@ BASE_GITHUB_URI="https://api.github.com/"
 API_VERSION="v3"
 API_HEADER={
     "Accept": "application/vnd.github.{}+json".format(API_VERSION),
+    "Accept": "application/vnd.github.antiope-preview+json",
     "Authorization": "token {}".format(GITHUB_TOKEN)
 }
 
