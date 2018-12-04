@@ -34,7 +34,7 @@ def get_remove_old_comment():
         Remove the chuck if exists
     """
 
-    COMMENTS_GITHUB_URI = BASE_GITHUB_URI + "repos/GregSharpe1/{}/issues/{}/comments".format(GITHUB_REPO, GITHUB_PULL_NUMBER)
+    COMMENTS_GITHUB_URI = BASE_GITHUB_URI + "repos/{}/issues/{}/comments".format(GITHUB_REPO, GITHUB_PULL_NUMBER)
     github_comments = requests.get(COMMENTS_GITHUB_URI, headers=API_HEADER).json()
 
     print github_comments
