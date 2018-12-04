@@ -57,7 +57,7 @@ def set_github_comment(status):
     """
         Post the chuck status on PR
     """
-    COMMENTS_GITHUB_URI = BASE_GITHUB_URI + "repos/GregSharpe1/{}/issues/1/comments".format(GITHUB_REPO)
+    COMMENTS_GITHUB_URI = BASE_GITHUB_URI + "repos/{}/issues/1/comments".format(GITHUB_REPO)
 
     payload = {
         "body": get_chuck_norris_gif(status)
