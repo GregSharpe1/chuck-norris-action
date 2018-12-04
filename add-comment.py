@@ -12,14 +12,6 @@ GITHUB_TOKEN=os.environ["GITHUB_TOKEN"]
 # Generate the pull request number from the 
 GITHUB_PULL_NUMBER=os.environ["GITHUB_EVENT_PATH"]
 
-print json.dumps(GITHUB_PULL_NUMBER)
-
-json_data=open(GITHUB_PULL_NUMBER).read()
-
-data = json.loads(json_data)
-
-print data
-
 BASE_GITHUB_URI="https://api.github.com/"
 API_VERSION="v3"
 API_HEADER={
@@ -64,7 +56,7 @@ def set_github_comment(status):
     """
         Post the chuck status on PR
     """
-    COMMENTS_GITHUB_URI = BASE_GITHUB_URI + "repos/GregSharpe1/{}/issues/{}/comments".format(GITHUB_REPO, GITHUB_PULL_NUMBER)
+    COMMENTS_GITHUB_URI = BASE_GITHUB_URI + "repos/GregSharpe1/{}/issues/1/comments".format(GITHUB_REPO, GITHUB_PULL_NUMBER)
 
     payload = {
         "body": get_chuck_norris_gif(status)
@@ -82,7 +74,7 @@ def main():
 
     # get_remove_old_comment()
 
-    # set_github_comment("good")
+    set_github_comment("good")
 
 # call the main script everrrrrrry time
 if __name__ == "__main__":
