@@ -6,9 +6,11 @@ import json
 # Used with the ENV vars set within the Github Action.
 import os
 
-GITHUB_REPO=os.environ["GITHUB_REPO"]
-GITHUB_PULL_NUMBER=os.environ["GITHUB_PULL_NUMBER"]
+GITHUB_REPO=os.environ["GITHUB_REPOSITORY"]
 GITHUB_TOKEN=os.environ["GITHUB_TOKEN"]
+
+# Generate the pull request number from the 
+GITHUB_PULL_NUMBER=os.environ["GITHUB_EVENT_PATH"].json()["number"]
 
 BASE_GITHUB_URI="https://api.github.com/"
 API_VERSION="v3"
@@ -17,20 +19,13 @@ API_HEADER={
     "Authorization": "token {}".format(GITHUB_TOKEN)
 }
 
+
 def get_chuck_norris_gif(status):
     """
-        Return a gif link based on good or bad input
+        Return a gif link based on good or bad build status
     """
+    return "https://raw.githubusercontent.com/GregSharpe1/chuck-norris-action/master/img/{}-chuck/1.gif".format(status)
 
-    if status == "good":
-        # Run a random function to return a link within the repos img/good-chuck dir
-        CHUCK_GIT_URL = "https://raw.githubusercontent.com/GregSharpe1/chuck-norris-action/master/img/good-chuck/1.gif"
-
-    elif status == "bad":
-        # Run the return random link function with bad being pass into it.
-        CHUCK_GIT_URL = "https://raw.githubusercontent.com/GregSharpe1/chuck-norris-action/master/img/bad-chuck/1.gif"
-
-    return CHUCK_GIT_URL
 
 def get_remove_old_comment():
     """
@@ -46,7 +41,7 @@ def get_remove_old_comment():
         # Loop through every commment if a comment exists with chuck norris .gif remove it.
         print comment["body"]
         print comment["id"]
-        if "thumb_up.jpg" in comment["body"]:
+        if "1.gif" in comment["body"]:
             # We've found a chuck norris . gif related comment
             # Let's remove it as assuming it's been posted by this action before.
             print("Removing comment: {}".format(comment["id"]))
@@ -55,6 +50,7 @@ def get_remove_old_comment():
             response = requests.delete(DELETE_COMMENT_URL, headers=API_HEADER)
 
     return response.json()
+
 
 def set_github_comment(status):
     """
@@ -67,3 +63,19 @@ def set_github_comment(status):
     }
     response = requests.post(COMMENTS_GITHUB_URI, headers=API_HEADER, data=json.dumps(payload))
     return response.json()
+
+
+def main():
+    """
+        Get the most recent build status -> return chuck norris image
+        clear any comments
+        post chuck status
+    """
+
+    get_remove_old_comment()
+
+    set_github_comment("bad")
+
+# call the main script everrrrrrry time
+if __name__ == "__main__":
+    main()
