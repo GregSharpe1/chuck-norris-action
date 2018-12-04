@@ -74,7 +74,7 @@ def main():
 
     get_remove_old_comment()
 
-    set_github_comment("bad")
+    set_github_comment("good")
 
 # call the main script everrrrrrry time
 if __name__ == "__main__":

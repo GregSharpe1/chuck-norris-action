@@ -13,4 +13,4 @@ RUN pip install -r requirements.txt
 
 COPY add-comment.py /usr/local/bin/add-comment
 
-CMD ["add-comment.py"]
+CMD ["add-comment"]
