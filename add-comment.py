@@ -37,8 +37,6 @@ def get_remove_old_comment():
     COMMENTS_GITHUB_URI = BASE_GITHUB_URI + "repos/{}/issues/{}/comments".format(GITHUB_REPO, GITHUB_PULL_NUMBER)
     github_comments = requests.get(COMMENTS_GITHUB_URI, headers=API_HEADER).json()
 
-    print github_comments
-
     for comment in github_comments:
         # Loop through every commment if a comment exists with chuck norris .gif remove it.
         print comment["body"]
