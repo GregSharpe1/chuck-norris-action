@@ -14,8 +14,7 @@ GITHUB_TOKEN=os.environ["GITHUB_TOKEN"]
 
 with open(os.environ["GITHUB_EVENT_PATH"]) as json_file:
     data = json.load(json_file)
-    for p in data:
-        print p
+    print data['number']
 
 BASE_GITHUB_URI="https://api.github.com/"
 API_VERSION="v3"
