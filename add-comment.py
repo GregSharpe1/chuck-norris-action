@@ -99,11 +99,11 @@ def get_pull_request_status():
             # Post the "bad" chuck norris gif
             set_github_comment("good")
 
-    if in_progress == 1:
-        print "LOG: Build still in progress, re-running the get pull request status function."
+    # if in_progress == 1:
+    #     print "LOG: Build still in progress, re-running the get pull request status function."
 
-        time.sleep(2)
-        get_pull_request_status()
+    #     time.sleep(2)
+    #     get_pull_request_status()
 
     return
 
