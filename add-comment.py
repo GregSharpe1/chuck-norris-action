@@ -13,6 +13,7 @@ GITHUB_TOKEN=os.environ["GITHUB_TOKEN"]
 GITHUB_PULL_NUMBER=os.environ["GITHUB_EVENT_PATH"]
 
 print GITHUB_PULL_NUMBER
+print GITHUB_TOKEN
 
 BASE_GITHUB_URI="https://api.github.com/"
 API_VERSION="v3"
@@ -74,9 +75,9 @@ def main():
         post chuck status
     """
 
-    get_remove_old_comment()
+    # get_remove_old_comment()
 
-    set_github_comment("good")
+    # set_github_comment("good")
 
 # call the main script everrrrrrry time
 if __name__ == "__main__":
