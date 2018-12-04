@@ -9,6 +9,7 @@ import os
 GITHUB_REPO=os.environ["GITHUB_REPOSITORY"]
 GITHUB_TOKEN=os.environ["GITHUB_TOKEN"]
 
+print GITHUB_REPO
 # Generate the pull request number from the 
 GITHUB_PULL_NUMBER=os.environ["GITHUB_EVENT_PATH"]
 
