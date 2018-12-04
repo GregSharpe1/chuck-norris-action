@@ -12,8 +12,7 @@ GITHUB_TOKEN=os.environ["GITHUB_TOKEN"]
 # Generate the pull request number from the 
 GITHUB_PULL_NUMBER=os.environ["GITHUB_EVENT_PATH"]
 
-print GITHUB_PULL_NUMBER
-print GITHUB_TOKEN
+print json.dumps(GITHUB_PULL_NUMBER)
 
 BASE_GITHUB_URI="https://api.github.com/"
 API_VERSION="v3"
