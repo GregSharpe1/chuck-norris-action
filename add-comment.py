@@ -24,7 +24,7 @@ def get_chuck_norris_gif(status):
     """
         Return a gif link based on good or bad build status
     """
-    return "https://raw.githubusercontent.com/GregSharpe1/chuck-norris-action/master/img/{}-chuck/1.gif".format(status)
+    return "![](https://raw.githubusercontent.com/GregSharpe1/chuck-norris-action/master/img/{}-chuck/1.gif)".format(status)
 
 
 def get_remove_old_comment():
