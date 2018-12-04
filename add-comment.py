@@ -56,7 +56,7 @@ def set_github_comment(status):
     """
         Post the chuck status on PR
     """
-    COMMENTS_GITHUB_URI = BASE_GITHUB_URI + "repos/GregSharpe1/{}/issues/1/comments".format(GITHUB_REPO, GITHUB_PULL_NUMBER)
+    COMMENTS_GITHUB_URI = BASE_GITHUB_URI + "repos/GregSharpe1/{}/issues/1/comments".format(GITHUB_REPO)
 
     payload = {
         "body": get_chuck_norris_gif(status)
@@ -75,6 +75,8 @@ def main():
     # get_remove_old_comment()
 
     set_github_comment("good")
+
+    print "Sent chuck chuck"
 
 # call the main script everrrrrrry time
 if __name__ == "__main__":
