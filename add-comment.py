@@ -65,16 +65,6 @@ def set_github_comment(status):
     return response.json()
 
 
-def main():
-    """
-        Get the most recent build status -> return chuck norris image
-        clear any comments
-        post chuck status
-    """
-
-    get_pull_request_status()
-
-
 def get_pull_request_status():
     """
         Return the status of the pull request in question.
@@ -117,6 +107,16 @@ def get_pull_request_status():
         get_pull_request_status()
 
     return
+
+
+def main():
+    """
+        Get the most recent build status -> return chuck norris image
+        clear any comments
+        post chuck status
+    """
+
+    get_pull_request_status()
 
 
 # call the main script everrrrrrry time
