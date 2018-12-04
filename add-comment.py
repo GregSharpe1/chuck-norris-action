@@ -48,7 +48,8 @@ def get_remove_old_comment():
             DELETE_COMMENT_URL = COMMENTS_GITHUB_URI + "/{}".format(comment["id"])
             print DELETE_COMMENT_URL
             response = requests.delete(DELETE_COMMENT_URL, headers=API_HEADER)
-
+            print response
+            
     return response.json()
 
 
