@@ -9,9 +9,10 @@ import os
 GITHUB_REPO=os.environ["GITHUB_REPOSITORY"]
 GITHUB_TOKEN=os.environ["GITHUB_TOKEN"]
 
-print GITHUB_REPO
 # Generate the pull request number from the 
-GITHUB_PULL_NUMBER=os.environ["GITHUB_EVENT_PATH"]
+GITHUB_PULL_NUMBER=json.load(os.environ["GITHUB_EVENT_PATH"])
+
+print GITHUB_PULL_NUMBER
 
 BASE_GITHUB_URI="https://api.github.com/"
 API_VERSION="v3"
